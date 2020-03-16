@@ -13,6 +13,6 @@ export const createBook = book => ({
 });
 
 export const removeBook = bookId => ({
-  type: CREATE_BOOK,
+  type: REMOVE_BOOK,
   bookId,
 });
