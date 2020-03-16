@@ -1,9 +1,14 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { render } from '@testing-library/react';
-import App from '../app';
+import { createStore } from 'redux';
+import App from '../components/app';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/powered with reactjs/i);
+import rootReducer from '../reducers';
+
+test('renders the app', () => {
+  const store = createStore(rootReducer);
+  const { getByText } = render(<Provider store={store}><App /></Provider>);
+  const linkElement = getByText(/magicbooks inc./i);
   expect(linkElement).toBeInTheDocument();
 });
