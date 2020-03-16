@@ -1,18 +1,6 @@
 import { CREATE_BOOK, REMOVE_BOOK } from '../actions/index';
 import BookCategories from '../static';
-
-const nanoId = require('nanoid');
-
-/**
- * Simple Book Factory
- * @param {String} title,
- * @param {String} category
- */
-const Book = (title, category) => ({
-  id: nanoId(10).toUpperCase(),
-  category,
-  title,
-});
+import Book from '../factories/book';
 
 const createBook = (state, action) => {
   const { book } = action;
