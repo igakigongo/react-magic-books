@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useToasts } from 'react-toast-notifications';
 import {
   Button, Card, Col, Form, Row,
 } from 'react-bootstrap';
@@ -42,7 +43,8 @@ const useInputWithValidation = (initialState, required = false) => {
 };
 
 const BooksForm = ({ dispatch }) => {
-  const [category, setCategory] = useState('');
+  const { addToast } = useToasts();
+  const [category, setCategory] = useState(BookCategories.ACTION);
   const {
     borderClass: titleBorderClass,
     onChange: titleChangeHandler,
@@ -51,14 +53,25 @@ const BooksForm = ({ dispatch }) => {
     value: title,
   } = useInputWithValidation('', true);
 
+  const resetForm = () => {
+    titleRef.current.value = '';
+    setCategory(BookCategories.ACTION);
+  };
+
   const titleIsValid = () => titlePristine !== null && titlePristine && !title;
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (titleIsValid()) return;
+    if (!title) {
+      addToast('Please add a book title', { appearance: 'error' });
+      return;
+    }
+
     dispatch(createBook(Book(title, category)));
-    titleRef.current.value = '';
-    setCategory(BookCategories.ACTION);
+    addToast('Book added', { appearance: 'success' });
+    setTimeout(() => {
+      resetForm();
+    }, 2000);
   };
 
   return (
@@ -85,10 +98,9 @@ const BooksForm = ({ dispatch }) => {
                 <Form.Control
                   as="select"
                   className="border-success"
-                  defaultValue={category}
-                  onChange={e => { setCategory(e.currentTarget.value); }}
+                  onChange={e => { setCategory(e.target.value); }}
                 >
-                  {categories.sort().map(category => (<option key={category}>{category}</option>))}
+                  {categories.sort().map(x => (<option key={x}>{x}</option>))}
                 </Form.Control>
               </Form.Group>
 

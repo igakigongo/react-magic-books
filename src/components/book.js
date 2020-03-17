@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 
 const Book = ({ book, handleRemoveBook }) => {
@@ -25,4 +24,4 @@ Book.propTypes = {
   handleRemoveBook: PropTypes.func.isRequired,
 };
 
-export default connect()(Book);
+export default Book;
