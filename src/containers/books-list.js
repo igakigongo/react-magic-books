@@ -39,27 +39,13 @@ const BooksList = ({
               &nbsp;Category
             </div>
           )}
-          {filteredBooks.length > 0 && (
-            <table className="table table-bordered table-striped mt-3">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Category</th>
-                  <th className="text-center" scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredBooks.map(book => (
-                  <Book
-                    book={book}
-                    handleRemoveBook={() => { handleRemoveBook(book); }}
-                    key={book.id}
-                  />
-                ))}
-              </tbody>
-            </table>
-          )}
+          {filteredBooks.length > 0 && filteredBooks.map(book => (
+            <Book
+              book={book}
+              handleRemoveBook={() => { handleRemoveBook(book); }}
+              key={book.id}
+            />
+          ))}
         </>
       )}
     </>
