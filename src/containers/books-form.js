@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useToasts } from 'react-toast-notifications';
 import {
-  Button, Card, Col, Form, Row,
+  Button, Card, Col, Form,
 } from 'react-bootstrap';
 import Book from '../factories/book';
 import BookCategories from '../static';
@@ -75,52 +75,39 @@ const BooksForm = ({ dispatch }) => {
   };
 
   return (
-    <Row>
-      <Col sm={12} md={{ span: 8, offset: 2 }} lg={{ span: 6, offset: 3 }}>
-        <Card className="shadow">
-          <Card.Header className="font-weight-bold">Book Form</Card.Header>
-          <Card.Body className="px-5">
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="titleControlId">
-                <Form.Label>Title</Form.Label>
-                <Form.Control
-                  className={titleBorderClass}
-                  onChange={titleChangeHandler}
-                  ref={titleRef}
-                  type="text"
-                  value={title}
-                />
-                {titleIsValid() && (<Form.Text className="text-danger">Title is required</Form.Text>)}
-              </Form.Group>
-
-              <Form.Group controlId="selectListControlId">
-                <Form.Label>Category</Form.Label>
-                <Form.Control
-                  as="select"
-                  className="border-success"
-                  onChange={e => { setCategory(e.target.value); }}
-                >
-                  {categories.sort().map(x => (<option key={x}>{x}</option>))}
-                </Form.Control>
-              </Form.Group>
-
-              <Form.Row>
-                <Form.Group as={Col}>
-                  <Button block type="submit" variant="success">
-                    Submit
-                  </Button>
-                </Form.Group>
-                <Form.Group as={Col}>
-                  <Button block type="reset" variant="secondary">
-                    Cancel
-                  </Button>
-                </Form.Group>
-              </Form.Row>
-            </Form>
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
+    <Card className="shadow-lg">
+      <Card.Body>
+        <Form onSubmit={handleSubmit}>
+          <Form.Row>
+            <Form.Group className="mb-0 col-7" controlId="titleControlId">
+              <Form.Control
+                className={titleBorderClass}
+                onChange={titleChangeHandler}
+                placeholder="Book Title"
+                ref={titleRef}
+                type="text"
+                value={title}
+              />
+              {titleIsValid() && (<Form.Text className="text-danger">Title is required</Form.Text>)}
+            </Form.Group>
+            <Form.Group className="mb-0 col-3" controlId="selectListControlId">
+              <Form.Control
+                as="select"
+                className="border-success"
+                onChange={e => { setCategory(e.target.value); }}
+              >
+                {categories.sort().map(x => (<option key={x}>{x}</option>))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} className="mb-0 col-2">
+              <Button block type="submit" variant="primary">
+                Submit
+              </Button>
+            </Form.Group>
+          </Form.Row>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 

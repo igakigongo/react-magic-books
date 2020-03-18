@@ -15,7 +15,7 @@
   font-size: .75rem;
 }
 
-.update-progress {
+.btn-primary, .btn-primary:hover {
   background-color: #6200EE;
   border-color: #6200EE;
 }
