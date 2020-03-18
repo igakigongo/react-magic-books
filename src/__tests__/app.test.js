@@ -9,6 +9,6 @@ import rootReducer from '../reducers';
 test('renders the app', () => {
   const store = createStore(rootReducer);
   const { getByText } = render(<Provider store={store}><App /></Provider>);
-  const linkElement = getByText(/magicbooks inc./i);
+  const linkElement = getByText(/bookstore cms/i);
   expect(linkElement).toBeInTheDocument();
 });

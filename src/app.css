@@ -1,0 +1,21 @@
+.navbar-brand {
+  color: #6200EE !important;
+  font-size: xx-large;
+}
+
+.book-links li {
+  font-size: 90%;
+}
+
+.CircularProgressbar {
+  width: 50% !important;
+}
+
+.percent {
+  font-size: .75rem;
+}
+
+.btn-primary, .btn-primary:hover {
+  background-color: #6200EE;
+  border-color: #6200EE;
+}
