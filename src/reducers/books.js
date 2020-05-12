@@ -1,46 +1,25 @@
-import { CREATE_BOOK, REMOVE_BOOK } from '../actions/index';
+import { createSlice } from '@reduxjs/toolkit';
 import BookCategories from '../static';
 import Book from '../factories/book';
 
-const createBook = (state, action) => {
-  const { book } = action;
-  const { books } = state;
-  return {
-    ...state,
-    books: [book, ...books],
-  };
-};
+const initialState = [
+  Book('The Book of Ivy', BookCategories.FICTION),
+  Book('Dear Edward', BookCategories.SCI_FI),
+  Book('Dracula', BookCategories.HORROR),
+];
 
-const removeBook = (state, action) => {
-  const { bookId } = action;
-  const { books } = state;
-  return {
-    ...state,
-    books: books.filter(x => x.id !== bookId),
-  };
-};
+const books = createSlice({
+  name: 'books',
+  initialState,
+  reducers: {
+    create: (state, action) => {
+      const shallowCopy = state.slice();
+      shallowCopy.splice(0, 0, action.payload);
+      return shallowCopy;
+    },
+    remove: (state, action) => state.filter(x => x.id !== action.payload),
+  },
+});
 
-const initialState = {
-  books: [
-    Book('The Book of Ivy', BookCategories.FICTION),
-    Book('Dear Edward', BookCategories.SCI_FI),
-    Book('Dracula', BookCategories.HORROR),
-  ],
-};
-
-const booksReducer = (state = initialState, action) => {
-  const { type } = action;
-  switch (type) {
-    case CREATE_BOOK: {
-      return createBook(state, action);
-    }
-    case REMOVE_BOOK: {
-      return removeBook(state, action);
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
-export default booksReducer;
+export const { create, remove } = books.actions;
+export default books.reducer;

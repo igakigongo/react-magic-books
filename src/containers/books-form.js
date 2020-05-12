@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 import Book from '../factories/book';
 import BookCategories from '../static';
-import { createBook } from '../actions';
+import { create } from '../reducers/books';
 
 const categories = [...Object.values(BookCategories)];
 
@@ -67,7 +67,7 @@ const BooksForm = ({ dispatch }) => {
       return;
     }
 
-    dispatch(createBook(Book(title, category)));
+    dispatch(create(Book(title, category)));
     addToast('Book added', { appearance: 'success' });
     setTimeout(() => {
       resetForm();
